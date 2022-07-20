@@ -1,0 +1,44 @@
+---
+# tasks file for update_system
+- name: "find the required directories in the patch"
+  win_find:
+    paths: "{{tmp_folder}}\\{{patch_number}}\\deploy\\tomcat\\webapps\\"
+    file_type: directory
+    recurse: no
+    patterns:
+      - "app"
+      - "app-core"
+      - "app-mobile-rest"
+      - "app-portal"
+      - "ROOT"
+  register: patch_files_system
+  failed_when: patch_files_system.matched == 0
+
+- name: "update_system role"
+  block:
+
+    - name: "delete directories webapps, shared"
+      win_file:
+        path: "{{ work_folder }}{{ item }}"
+        state: absent
+      with_items:
+        - webapps
+        - shared
+
+    - name: "create directory webapps"
+      win_file:
+        path: "{{work_folder}}webapps"
+        state: directory
+
+    - name: "copy directory webapps"
+      win_copy:
+        src: "{{item.path}}"
+        dest: "{{work_folder}}webapps"
+        remote_src: yes
+      with_items: "{{patch_files_system.files}}"
+
+    - name: "copy directory shared"
+      win_copy:
+        src: "{{tmp_folder}}\\{{patch_number}}\\deploy\\tomcat\\shared"
+        dest: "{{work_folder}}"
+        remote_src: yes

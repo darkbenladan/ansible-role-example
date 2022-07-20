@@ -1,0 +1,27 @@
+- name: Check installed apps
+  win_shell: '(Get-ItemProperty HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\*).DisplayName'
+  register: check_apps
+
+- name: set fact
+  set_fact:
+    check_java: "{{ 'Java SE Development Kit 8 Update 291 (64-bit)' in check_apps.stdout_lines }}"
+    check_libreOffice: "{{ 'LibreOffice 7.1.4.2' in check_apps.stdout_lines }}"
+
+- name: debug msg
+  debug:
+    msg: "java installed: {{ check_java }},
+           libraoffice installed: {{ check_libreOffice }}"
+
+- name: Install Java
+  win_package:
+    path: C:\distrib\components\jdk-8u291-windows-x64.exe
+    product_id: Java8
+    arguments: /s
+  when: check_java == false
+
+- name: Install LibreOffice
+  win_package:
+    path: C:\distrib\components\LibreOffice_7.1.4_Win_x64.msi
+    product_id: LibreOffice7
+    arguments: RebootYesNo=No /qn
+  when: check_libreOffice == false

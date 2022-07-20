@@ -1,0 +1,9 @@
+- name: Create system directory
+  win_file:
+    path: C:\system
+    state: directory
+
+- name: Create system bin directory
+  win_file:
+    path: C:\system\bin
+    state: directory

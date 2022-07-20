@@ -1,0 +1,7 @@
+#- name: copy Java to PC
+#  win_copy: 
+#    src: "./components/Java"
+#    dest: "C:\\Program Files"
+
+- name: Set an environment variable for all users by PS script
+  win_shell: '[Environment]::SetEnvironmentVariable("JAVA_HOME", "C:\Program Files\Java\jdk1.8.0_291", "Machine")'

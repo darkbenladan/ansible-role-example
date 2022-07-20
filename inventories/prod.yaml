@@ -1,0 +1,16 @@
+---
+all:
+  children:
+    # Сервера для обновления core части
+    core:
+      hosts:
+        prd-01:
+        prd-02:
+
+    # Сервера для обновления web части
+    web:
+      hosts:
+        web-prd-01:
+        web-prd-02:
+        web-prd-03:
+        web-prd-04:

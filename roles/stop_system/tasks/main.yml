@@ -1,0 +1,17 @@
+- name: "stop services"
+  block:
+      - name: copy kill_java script
+        win_copy:
+          src: files/kill_java.py
+          dest: C:\Windows\Temp\
+
+      - name: kill java
+        win_shell: 'python C:\Windows\Temp\kill_java.py'
+
+      - name: copy kill_office script
+        win_copy:
+          src: files/kill_office.py
+          dest: C:\Windows\Temp\
+
+      - name: kill office
+        win_shell: 'python C:\Windows\Temp\kill_office.py'

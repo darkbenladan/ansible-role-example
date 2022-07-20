@@ -1,0 +1,18 @@
+# Задаем подключение к Windows-серверу
+ansible_user: "ansible"
+# ansible_password: "{{lookup('env','bamboo_ansible_password') }}" - это будем использовать, чтобы не светить пароли
+ansible_password: "password"
+
+# Стандартные значения для подлючение к win-серверу
+ansible_connection: "winrm"
+ansible_port: "5986"
+ansible_winrm_server_cert_validation: "ignore"
+ansible_winrm_operation_timeout_sec: 120
+ansible_winrm_read_timeout_sec: 130
+
+# Путь в файловой системе до system
+work_folder: "C:\\system\\"
+# Временная папка где будут находиться компоненты для установки
+tmp_folder: "C:\\distrib\\"
+# Время паузы
+pause_time: "120"

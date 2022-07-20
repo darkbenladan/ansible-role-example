@@ -1,0 +1,85 @@
+- hosts: "web"
+  vars:
+    patch_number: "{{ lookup('env', 'bamboo_buildNumber') }}"
+    bamboo_work_dir: "{{ lookup('env', 'bamboo_build_working_directory') }}"
+
+  tasks:
+    - name: "update web"
+      block:
+        - name: stopping system
+          import_role:
+            name: "stop_system"
+
+        - name: "copy patch to win-server"
+          import_tasks: "tasks/copy_artifact_win.yaml"
+
+        - name:
+          import_role:
+            name: "check_installed_apps"
+
+        - name: update system
+          import_role:
+            name: "update_system_web"
+
+        - name: starting system
+          import_role:
+            name: "start_system"
+
+- hosts: "core"
+  vars:
+    patch_number: "{{ lookup('env', 'bamboo_buildNumber') }}"
+    bamboo_work_dir: "{{ lookup('env', 'bamboo_build_working_directory') }}"
+
+  tasks:
+    - name: "update core"
+      block:
+        - name: stopping system
+          import_role:
+            name: "stop_system"
+
+        - name: "copy patch to win-server"
+          import_tasks: "tasks/copy_artifact_win.yaml"
+
+        - name:
+          import_role:
+            name: "check_installed_apps"
+
+        - name: update system
+          import_role:
+            name: "update_system_core"
+
+        - name: starting system
+          import_role:
+            name: "start_system"
+
+- hosts: "combined"
+  vars:
+    patch_number: "{{ lookup('env', 'bamboo_buildNumber') }}"
+    bamboo_work_dir: "{{ lookup('env', 'bamboo_build_working_directory') }}"
+
+  tasks:
+    - name: "update combined"
+      block:
+        - name: stopping system
+          import_role:
+            name: "stop_system"
+
+        - name: "copy patch to win-server"
+          import_tasks: "tasks/copy_artifact_win.yaml"
+
+        - name:
+          import_role:
+            name: "check_installed_apps"
+
+        - name: update system
+          import_role:
+            name: "update_system_combined"
+
+        - name: starting system
+          import_role:
+            name: "start_system"
+
+        - name:
+          import_role:
+            name: "run_inits"
+          when: run_inits_core

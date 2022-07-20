@@ -1,0 +1,14 @@
+---
+all:
+  children:
+    # Сервера для обновления core части
+    core:
+      hosts:
+        stage-01:
+        stage-02:
+
+    # Сервера для обновления web части
+    web:
+      hosts:
+        web-stage01:
+        web-stage02:

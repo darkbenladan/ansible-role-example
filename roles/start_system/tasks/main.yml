@@ -1,0 +1,17 @@
+- name: system start
+  win_command: "catalina.bat start"
+  args:
+    chdir: "{{ work_folder }}\\bin"
+  async: 30
+  poll: 0
+
+# - name: Pause
+#   pause:
+#     seconds: "{{pause_time}}"
+
+- name: "verify java"
+  win_shell: |
+    wmic process where "name like '%java%'" get /format:list
+  register: java_result
+- debug:
+    msg: "{{java_result.stdout}}"

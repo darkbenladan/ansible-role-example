@@ -1,0 +1,4 @@
+- hosts: all
+  roles:
+    - role: stop_system
+    - role: start_system

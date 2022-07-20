@@ -1,0 +1,10 @@
+---
+all:
+  children:
+    # Однонодные сервера
+    combined:
+      hosts:
+        devops-back:
+        uat-back:
+        test-back:
+        pilot-back:

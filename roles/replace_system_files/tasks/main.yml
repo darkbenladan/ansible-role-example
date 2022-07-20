@@ -1,0 +1,2 @@
+- name: replace system files
+  win_shell: 'Copy-Item -Path C:\systemRelease\deploy\tomcat\* -Destination C:\system -Recurse -Force'

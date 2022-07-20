@@ -1,0 +1,19 @@
+- name: Firewall rule to system on port 8080
+  win_firewall_rule:
+    name: system_web
+    localport: 8080
+    action: allow
+    direction: in
+    protocol: tcp
+    state: present
+    enabled: yes
+
+- name: Firewall rule to system on port 8005
+  win_firewall_rule:
+    name: system_app
+    localport: 8005
+    action: allow
+    direction: in
+    protocol: tcp
+    state: present
+    enabled: yes

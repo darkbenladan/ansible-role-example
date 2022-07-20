@@ -1,0 +1,4 @@
+- name: copy components to PC
+  win_copy: 
+    src: "./components"
+    dest: "C:\\distrib\\"

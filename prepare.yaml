@@ -1,0 +1,7 @@
+- hosts: all
+  roles:
+    - role: java_install
+    - role: unpack_artifact
+    - role: copy_components
+    - role: replace_system_files
+    - role: port_unlock

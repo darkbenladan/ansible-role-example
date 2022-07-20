@@ -1,0 +1,10 @@
+- name: "copy patch to: '{{tmp_folder}}'"
+  win_copy:
+    src: "{{bamboo_work_dir}}/{{patch_number}}/system.zip"
+    dest: "{{tmp_folder}}\\"
+
+- name: "unzip system.zip"
+  win_unzip:
+    src: "{{tmp_folder}}\\system.zip"
+    dest: "{{tmp_folder}}\\{{patch_number}}"
+    delete_archive: yes

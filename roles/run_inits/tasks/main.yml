@@ -1,0 +1,12 @@
+- name: get java pid
+  win_shell: get-process java |select -expand id
+  register: java_pid
+
+- name: jmxterm_run_inits
+  win_shell: |
+    &'C:\Program Files\Java\jdk1.8.0_291\bin\java.exe' -jar C:\jmxterm\jmxterm-1.0.2-uber.jar -l {{ java_pid.stdout_lines[0] }} -n -i C:\jmxterm\inits.txt
+  register: inits_result
+
+- name: print inits result
+  debug:
+    msg: "{{ inits_result.stderr_lines }}"
